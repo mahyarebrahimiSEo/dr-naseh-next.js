@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  String        @id @default(uuid())
+  email               String        @unique
+  fullName            String
+  password            String
+  role                String        @default("ADMIN") // ADMIN, SECRETARY, STAFF
+  avatar              String?
+  isActive            Boolean       @default(true)
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  handledAppointments Appointment[] @relation("HandledAppointments")
+}
+
+model Appointment {
+  id                 String    @id @default(uuid())
+  fullName           String
+  phoneNumber        String
+  consultationTopic  String
+  shift              String    @default("afternoon") // morning, afternoon, first_available
+  patientMessage     String?
+  status             String    @default("PENDING") // PENDING, CONTACTED, CONFIRMED, COMPLETED, CANCELLED
+  appointmentDate    DateTime?
+  internalNotes      String?
+  handledById        String?
+  handledBy          User?     @relation("HandledAppointments", fields: [handledById], references: [id])
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+}
+
+model Article {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  summary     String
+  content     String
+  category    String   // knee, spine, prp, emg, exercise
+  readTime    String   @default("۵ دقیقه")
+  author      String   @default("دکتر ناصح یوسفی")
+  imageUrl    String?
+  imageAlt    String?
+  isPublished Boolean  @default(true)
+  viewsCount  Int      @default(0)
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Service {
+  id           String   @id @default(uuid())
+  title        String
+  latinTitle   String?
+  slug         String   @unique
+  category     String   // biologic, electro, spine, rehab
+  badge        String?
+  summary      String
+  description  String?
+  benefits     String?  // JSON string or newline-separated items
+  duration     String?
+  icon         String?
+  imageUrl     String?
+  displayOrder Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model NewsletterSubscriber {
+  id        String   @id @default(uuid())
+  fullName  String
+  contact   String   @unique // Email or Iranian phone number
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model GalleryItem {
+  id           String   @id @default(uuid())
+  title        String
+  description  String?
+  category     String   // clinic, equipment, procedures
+  imageUrl     String
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+}
+
+model Testimonial {
+  id           String   @id @default(uuid())
+  patientName  String
+  treatment    String
+  comment      String
+  rating       Int      @default(5)
+  isApproved   Boolean  @default(true)
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+}
+
+model FAQ {
+  id           String   @id @default(uuid())
+  question     String
+  answer       String
+  category     String   @default("general")
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+}
+
+model ClinicSetting {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  value       String
+  description String?
+  updatedAt   DateTime @updatedAt
+}

@@ -1,0 +1,72 @@
+﻿{
+  "templates": {
+    "react-feature": {
+      "name": "React Feature-First Architecture",
+      "directories": [
+        "src/app",
+        "src/assets/icons",
+        "src/assets/images",
+        "src/components/ui",
+        "src/components/layout",
+        "src/components/feedback",
+        "src/features/auth/api",
+        "src/features/auth/components",
+        "src/features/auth/hooks",
+        "src/features/dashboard/components",
+        "src/features/dashboard/hooks",
+        "src/hooks",
+        "src/services",
+        "src/stores",
+        "src/utils",
+        "src/constants",
+        "src/styles",
+        "docs"
+      ]
+    },
+    "nextjs-app": {
+      "name": "Next.js 14+ App Router Architecture",
+      "directories": [
+        "src/app/(auth)/login",
+        "src/app/(dashboard)/dashboard",
+        "src/app/api",
+        "src/components/ui",
+        "src/components/layout",
+        "src/lib",
+        "src/server/actions",
+        "src/types",
+        "src/utils",
+        "public/images"
+      ]
+    },
+    "clean-backend": {
+      "name": "Clean Architecture Backend (Node/TS)",
+      "directories": [
+        "src/core/entities",
+        "src/core/value-objects",
+        "src/application/use-cases",
+        "src/application/interfaces",
+        "src/application/dtos",
+        "src/infrastructure/database/models",
+        "src/infrastructure/database/repositories",
+        "src/infrastructure/external",
+        "src/presentation/http/controllers",
+        "src/presentation/http/middlewares",
+        "src/presentation/http/routes",
+        "src/config"
+      ]
+    },
+    "fastapi-modular": {
+      "name": "Python FastAPI Modular Architecture",
+      "directories": [
+        "app/api/v1/endpoints",
+        "app/core",
+        "app/crud",
+        "app/db",
+        "app/models",
+        "app/schemas",
+        "app/services",
+        "tests"
+      ]
+    }
+  }
+}
